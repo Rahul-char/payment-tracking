@@ -3,13 +3,14 @@ package com.example.payments.service;
 import com.example.payments.dto.Paymentdto;
 import com.example.payments.model.Payment;
 import com.example.payments.repository.PaymentRepository;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.io.File;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,5 +96,60 @@ public class PaymentService {
     // 6. Delete payment
     public void deletePayment(String id) {
         paymentRepository.deleteById(id);
+    }
+
+    public Map<String, List<Double>> finalAmount() {
+           List<Payment> p = paymentRepository.findAll();
+
+        return p.stream()
+                .collect(Collectors.groupingBy(
+                        Payment::getInvoicenumber, // Correct reference to the method
+                        Collectors.mapping(
+                                payment -> (payment.getAmount() / 100) * (100 - payment.getTds()), // Calculate final amount
+                                Collectors.toList() // Collect the calculated amounts into a list
+                        )
+                ));
+    }
+
+
+    public byte[] generateReport(String invoiceNumber) throws JRException {
+
+        InputStream i = getClass().getResourceAsStream("/dummy.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(i);
+
+        List<Payment> p = paymentRepository.findAll();
+        List<Payment> filteredPayments = p.stream()
+                            .filter(payment -> payment.getInvoicenumber().equals(invoiceNumber))
+                            .collect(Collectors.toList());
+
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("invoiceNumber", invoiceNumber);
+
+        // Create a data source from your filtered data list
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(filteredPayments);
+
+        // Fill the report
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        String outputDir = "C:/Users/Administrator/Documents/";
+
+        String fileName = invoiceNumber + ".pdf";
+
+        String filePath = outputDir + fileName;
+
+        // Ensure the directory exists
+
+        new File(outputDir).mkdirs();
+
+        // Export the report to PDF and save it to the specified location
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+
+        // Export the report to PDF and return as byte array
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 }

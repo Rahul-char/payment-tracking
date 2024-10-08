@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+
+              name="PaymentReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="YourDataAdapterName"/>
+
+    <field name="id" class="java.lang.String"/>
+    <field name="amount" class="java.lang.Double"/>
+    <field name="currency" class="java.lang.String"/>
+    <field name="username" class="java.lang.String"/>
+    <field name="ponumber" class="java.lang.String"/>
+    <field name="invoicenumber" class="java.lang.String"/>
+    <field name="targetBankAccount" class="java.lang.String"/>
+    <field name="sourceBankAccount" class="java.lang.String"/>
+    <field name="tds" class="java.lang.Integer"/>
+    <field name="status" class="java.lang.String"/>
+    <field name="paymentdate" class="java.lang.String"/>
+
+    <title>
+        <band height="50">
+            <rectangle>
+                <reportElement x="0" y="0" width="595" height="50" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="20" y="10" width="550" height="30" forecolor="#000000" mode="Opaque"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial" size="20" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Payment Report"]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+
+    <detail>
+        <band height="200">
+            <rectangle>
+                <reportElement x="0" y="0" width="595" height="200" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+                <rectangle>
+                    <reportElement x="0" y="0" width="297" height="30" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+                </rectangle>
+            <rectangle>
+                <reportElement x="297" y="0" width="298" height="30" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="300" y="10" width="200" height="30"/>
+                <textFieldExpression><![CDATA["AccountHolder: " + $F{username}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="10" y="10" width="500" height="100"/>
+                <textFieldExpression><![CDATA["Invoice Number: " + $F{invoicenumber}]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="0" y="30" width="297" height="70" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="10" y="35" width="200" height="30"/>
+                <textFieldExpression><![CDATA["Source Bank Account: " + $F{sourceBankAccount}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="45" width="200" height="30"/>
+                <textFieldExpression><![CDATA["AccountHolder: Rahul"]]></textFieldExpression>
+            </textField>
+        <textField>
+
+            <reportElement x="10" y="55" width="200" height="30"/>
+                <textFieldExpression><![CDATA["Address: 26-98/098, appartments,"]]></textFieldExpression>
+        </textField>
+        <textField>
+
+                <reportElement x="10" y="65" width="200" height="30"/>
+
+                <textFieldExpression><![CDATA["     trivandrum,"]]></textFieldExpression>
+        </textField>
+        <textField>
+
+            <reportElement x="10" y="75" width="200" height="30"/>
+
+                <textFieldExpression><![CDATA["     501010,"]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="297" y="30" width="298" height="55" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="300" y="35" width="200" height="30"/>
+                <textFieldExpression><![CDATA["Target Bank Account: " + $F{targetBankAccount}]]></textFieldExpression>
+            </textField>
+        <textField>
+
+                <reportElement x="300" y="45" width="200" height="30"/>
+                <textFieldExpression><![CDATA["AccountHolder: " + $F{username}]]></textFieldExpression>
+        </textField>
+        <textField>
+
+            <reportElement x="300" y="55" width="200" height="30"/>
+
+                <textFieldExpression><![CDATA["Address: 26-98/098, appartments,"]]></textFieldExpression>
+        </textField>
+        <textField>
+
+            <reportElement x="300" y="65" width="200" height="30"/>
+
+                <textFieldExpression><![CDATA["     trivandrum,"]]></textFieldExpression>
+        </textField>
+        <textField>
+
+            <reportElement x="300" y="75" width="200" height="30"/>
+
+                <textFieldExpression><![CDATA["     501010,"]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="297" y="85" width="298" height="15" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="300" y="85" width="200" height="30"/>
+                <textFieldExpression><![CDATA["PO Number: " + $F{ponumber}]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="0" y="100" width="595" height="50" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="10" y="110" width="200" height="30"/>
+                <textFieldExpression><![CDATA["Bank Details: "]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="0" y="130" width="200" height="50" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="10" y="135" width="200" height="30"/>
+                <textFieldExpression><![CDATA["ITEMS: "]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="145" width="200" height="30"/>
+                <textFieldExpression><![CDATA["AWS Cloud"]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="200" y="130" width="200" height="50" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="203" y="135" width="200" height="30"/>
+                <textFieldExpression><![CDATA["No.of.Months: "]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="400" y="130" width="195" height="50" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="403" y="135" width="200" height="30"/>
+                <textFieldExpression><![CDATA["Total Amount: "]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="403" y="145" width="200" height="30"/>
+                <textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="165" width="200" height="30"/>
+                <textFieldExpression><![CDATA["TDS- " + $F{tds} + "%"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="403" y="165" width="200" height="30"/>
+                <textFieldExpression><![CDATA[($F{tds} * $F{amount})/100]]></textFieldExpression>
+            </textField>
+            <rectangle>
+                <reportElement x="400" y="180" width="195" height="20" forecolor="#C0C0C0" backcolor="#FFFFFF"/>
+            </rectangle>
+            <textField>
+                <reportElement x="300" y="183" width="200" height="17"/>
+                <textFieldExpression><![CDATA["FinalAmount"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="403" y="183" width="200" height="17"/>
+                <textFieldExpression><![CDATA[(100 - $F{tds}) * $F{amount}/100]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <summary>
+        <band height="20"/>
+    </summary>
+
+</jasperReport>

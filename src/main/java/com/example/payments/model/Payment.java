@@ -25,4 +25,5 @@ public class Payment {
     private int tds;
     private String status;
     private String paymentdate;
+
 }

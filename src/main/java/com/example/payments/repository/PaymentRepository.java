@@ -1,6 +1,7 @@
 package com.example.payments.repository;
 
 import com.example.payments.model.Payment;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -11,7 +12,7 @@ public interface PaymentRepository extends MongoRepository<Payment, String> {
     List<Payment> findByStatus(String status);
 
     // 2. Sum all amounts
-    @Query("SELECT SUM(p.amount) FROM Payment p")
+    @Aggregation(pipeline = {"{ '$group': { '_id': null, 'totalAmount': { '$sum': '$amount' } } }"})
     Double sumAllAmounts();
 
     // 3. Find by invoice number

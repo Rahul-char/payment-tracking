@@ -4,6 +4,7 @@ import com.example.payments.dto.Paymentdto;
 import com.example.payments.model.Payment;
 import com.example.payments.service.PaymentService;
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +62,15 @@ public class PaymentController {
     public ResponseEntity<Void> deletePayment(@PathVariable String id) {
         paymentService.deletePayment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/amountAfterTax")
+    public ResponseEntity<Map<String, List<Double>>> finalAmount(){
+        return new ResponseEntity<>(paymentService.finalAmount(), HttpStatus.OK);
+    }
+
+    @GetMapping("/jasper")
+    public ResponseEntity<byte[]> generateReport(@RequestParam String invoicenumber) throws JRException {
+        return new ResponseEntity<>(paymentService.generateReport(invoicenumber), HttpStatus.OK);
     }
 }
